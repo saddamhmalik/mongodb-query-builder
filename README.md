@@ -12,51 +12,44 @@ npm install mongodb-query-builder
 ### Usage
 
 ```code
-const { MongoClient } = require('mongodb');
-const QueryBuilder = require('mongodb-query-builder');
+import express from 'express';
+import mongoose from 'mongoose';
+import QueryBuilder from '@saddamhmalik/mongodb-query-builder';
 
-// Connect to MongoDB
-const client = new MongoClient('mongodb://localhost:27017', { useNewUrlParser: true, useUnifiedTopology: true });
-await client.connect();
+const app = express();
+const port = process.env.PORT || 3001;
 
-try {
-  // Get reference to the database
-  const db = client.db('your_database_name');
-  
-  // Create a QueryBuilder instance with a collection
-  const collection = db.collection('your_collection_name');
-  const qb = new QueryBuilder(collection);
-  
-  // Perform queries using QueryBuilder methods
+mongoose.connect('mongodb://localhost:27017/tasks')
+    .then(() => {
+        console.log('Connected to MongoDB');
+    })
+    .catch((error) => {
+        console.error('Error connecting to MongoDB:', error);
+    });
+const taskSchema = new mongoose.Schema({
+    title: String,
+    description: String,
+});
 
-  // 1. Where Clause
-  const results1 = await qb.where('field', '=', 'value').get();
-  console.log('Where Clause results:', results1);
+const Task = mongoose.model('Task', taskSchema);
 
-  // 2. OrWhere Clause
-  const results2 = await qb.where('age', '>', 30).orWhere('city', '=', 'New York').get();
-  console.log('OrWhere Clause results:', results2);
+app.get('/', async (req, res) => {
+    try {
+        // Example usage of MongoDB Query Builder
+        const qb = new QueryBuilder(Task);
+        const results = await qb.where('title', '=', 'New Task').orWhere('title','=','three').get();
 
-  // 3. Select
-  const results3 = await qb.select(['name', 'age']).get();
-  console.log('Select results:', results3);
+        res.json(results);
+    } catch (error) {
+        console.error('Error:', error);
+        res.status(500).json({ message:error});
+    }
+});
 
-  // 4. Order By
-  const results4 = await qb.orderBy('age', 'desc').get();
-  console.log('Order By results:', results4);
-
-  // 5. Limit and Skip
-  const results5 = await qb.limit(10).skip(5).get();
-  console.log('Limit and Skip results:', results5);
-
-  // 6. Join
-  const ordersCollection = db.collection('orders');
-  const results6 = await qb.join('orders', '_id', 'user_id', 'orders').get();
-  console.log('Join results:', results6);
-} finally {
-  // Close the connection
-  await client.close();
-}
+// Start the server
+app.listen(port, () => {
+    console.log(`Server is running on port ${port}`);
+});
 
 ```
 
