@@ -1,7 +1,7 @@
 {
-  "name": "mongodb-query-builder",
+  "name": "@saddamhmalik/mongodb-query-builder",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "lib/queryBuilder.js",
   "scripts": {
     "test": "jest"
   },
