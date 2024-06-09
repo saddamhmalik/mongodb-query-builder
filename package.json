@@ -1,0 +1,22 @@
+{
+  "name": "mongodb-query-builder",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "keywords": ["mongodb", "query", "builder", "database", "laravel"],
+  "author": "Saddam Hussain Malik",
+  "license": "ISC",
+  "description": "A MongoDB query builder for Node.js applications, inspired by Laravel's query builder.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/saddamhmalik/mongodb-query-builder.git"
+  },
+  "dependencies": {
+    "mongodb": "^6.7.0"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0"
+  }
+}
