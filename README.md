@@ -7,7 +7,7 @@ The MongoDB Query Builder is a Node.js library inspired by Laravel's query build
 To install the MongoDB Query Builder library, simply run:
 
 ```bash
-npm install mongodb-query-builder
+npm install @saddamhmalik/mongodb-query-builder
 ```
 ### Usage
 
