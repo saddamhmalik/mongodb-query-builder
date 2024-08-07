@@ -1,6 +1,6 @@
 {
   "name": "@saddamhmalik/mongodb-query-builder",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "main": "lib/queryBuilder.js",
   "scripts": {
     "test": "jest"
